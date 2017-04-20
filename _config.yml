@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Snow Memory    #博客名
+title: haoer blog    #博客名
 subtitle: 雪忆, 如雪般单纯, 冷静思考.  #博客副标题
 description:          #网站描述, 用于爬虫抓取的关键词
-author: Andrew Liu    #作者名称
-email: Liu.bin.coder@gmail.com  #作者邮箱
+author: kevin    #作者名称
+email: angularfang@gmail.com  #作者邮箱
 language: zh-CN       #网页编码,中文
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://andrewliu.tk   #用于绑定域名, 其他的不需要配置
+url: http://haoer.com   #用于绑定域名, 其他的不需要配置
 root: /
 permalink: :year/:month/:day/:title/
 tag_dir: tags
