@@ -83,8 +83,13 @@ disqus_shortname:
 theme: next    #主题设置
 exclude_generator:
 
-#百度统计
-baidu_analytics: e8604faa2ef85feb8ae0b4438ffe8eb3
+#添加百度/谷歌/本地 自定义站点内容搜索
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
 
 # Deployment  站点部署到github要配置这里, 非常重要
 ## Docs: http://hexo.io/docs/deployment.html
