@@ -90,6 +90,13 @@ search:
   format: html
   limit: 10000
 
+algolia:
+  applicationID: '5MTN5O21GF'
+  apiKey: 'c303fd3327f6139099bca505d27e5ca0'
+  adminApiKey: '14d6567093f48e313179e4b79b535213'
+  indexName: 'haoer'
+  chunkSize: 5000
+
 
 # Deployment  站点部署到github要配置这里, 非常重要
 ## Docs: http://hexo.io/docs/deployment.html
