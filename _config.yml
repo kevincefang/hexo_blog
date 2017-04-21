@@ -12,7 +12,7 @@ language: zh-Hans       #网页编码,简体中文
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://fhaoer.com   #用于绑定域名, 其他的不需要配置
+#url: http://fhaoer.com   #用于绑定域名, 其他的不需要配置
 root: /
 permalink: :year/:month/:day/:title/
 tag_dir: tags
