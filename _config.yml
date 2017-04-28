@@ -5,7 +5,7 @@
 # Site
 title: Haoer Blog    #博客名
 subtitle: 雪忆, 如雪般单纯, 冷静思考.  #博客副标题
-description: java blog hexo html js           #网站描述, 用于爬虫抓取的关键词
+description:          #网站描述, 用于爬虫抓取的关键词
 author: kevin    #作者名称
 email: angularfang@gmail.com  #作者邮箱
 language: zh-Hans       #网页编码,简体中文
