@@ -2,8 +2,8 @@
 title: volatile的实现原理
 date: 2017-11-13 17:30:10
 tags: 
-- java并发
-- 锁
+- java
+- jvm
 - 面试
 categories: java
 ---
