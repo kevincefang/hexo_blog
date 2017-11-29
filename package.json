@@ -1,6 +1,7 @@
 {
   "name": "hexo-site",
   "version": "0.0.0",
+  "description":"haoer blog",
   "private": true,
   "hexo": {
     "version": "3.3.1"

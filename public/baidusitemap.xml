@@ -4,6 +4,73 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/29/zuoxi/</loc>
+    <lastmod>2017-11-29T07:08:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>良好的个人作息时间表</title>
+        <pubTime>2017-11-29T10:30:10.000Z</pubTime>
+        
+        <tag>慢生活</tag>
+         
+        <tag>作息时间</tag>
+         
+         
+           
+             
+              <breadCrumb title="慢生活" url="http://yoursite.com/categories/%E6%85%A2%E7%94%9F%E6%B4%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/29/git-operators/</loc>
+    <lastmod>2017-11-29T06:33:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git常用命令</title>
+        <pubTime>2017-11-29T10:30:10.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="git" url="http://yoursite.com/categories/git/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/29/synchronized/</loc>
+    <lastmod>2017-11-29T02:26:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>同步锁Synchronized及实现原理</title>
+        <pubTime>2017-11-29T10:30:10.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>jvm</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://yoursite.com/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>http://yoursite.com/2017/11/27/HashMap/</loc>
     <lastmod>2017-11-27T05:40:34.000Z</lastmod>
     <data>
@@ -309,7 +376,6 @@
     </data>
     </url>
 
-    
     
     
     
