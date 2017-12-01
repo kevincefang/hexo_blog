@@ -2,6 +2,6 @@ hexo clean
 
 hexo g
 
-gulp build 压缩源代码
+hexo qiniu sync 上传图片到七牛云端
 
 hexo d

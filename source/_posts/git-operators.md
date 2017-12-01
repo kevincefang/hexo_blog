@@ -8,7 +8,7 @@ categories: git
 
 > 理解这些指令，觉得最重要的是理解Git的内部原理，比如Git的分布式版本控制，分清楚工作区、暂存区、版本库，还有就是理解Git跟踪并管理的是修改，而非文件。
 
-![1](http://fhaoer.com/images/20171129/1.jpg)
+![classloader](http://p066mj5r9.bkt.clouddn.com/static/images/20171129/1.jpg)
 
 ## 第一步是要获得一个GIT仓库
 
@@ -38,7 +38,8 @@ ssh -v git@github.com //检验下Git安装是否正确，
 ## 提交
 
 git tracked的是修改，而不是文件
-![2](http://fhaoer.com/images/20171129/2.jpg)
+
+{% qnimg 20171129/2.jpg title:1 alt:1 'class:class1 class2' %}
 
 ```Shell
 #将“当前修改”移动到暂存区(stage)
@@ -125,7 +126,7 @@ $ git clone git@github.com:Yikun/yikun.github.com.git path
 
 ## 分支操作
 
-![3](http://fhaoer.com/images/20171129/3.jpg)
+![classloader](http://p066mj5r9.bkt.clouddn.com/static/images/20171129/3.png)
 
 ```shell
 # 查看当前分支

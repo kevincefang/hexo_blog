@@ -15,7 +15,7 @@ categories: java
 
 ### 双亲委派模型执行流程
 
-![classloader](http://fhaoer.com/images/20171103/classloader.jpg)
+![classloader](http://p066mj5r9.bkt.clouddn.com/static/images/20171103/classloader.jpg)
 
 ### 双亲委派模型的好处
 > java类随着它的加载器一起具备了一种带有优先级的层次关系.
