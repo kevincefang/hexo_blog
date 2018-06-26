@@ -4,7 +4,7 @@
 
 # Site
 title: Haoer Blog    #博客名
-subtitle: 学而后知不足.  #博客副标题
+subtitle: 技术的道路没有彼岸  #博客副标题
 description: fhaoer blog 博客 java storm vpn hexo spring springboot springcloud jvm https git SonarQube restful      #网站描述, 用于爬虫抓取的关键词
 keywords: fhaoer
 author: kevin    #作者名称
