@@ -1,0 +1,169 @@
+---
+title: Java8新特性——Lambda表达式
+date: 2018-06-27
+tags: 
+- java8
+- lambda
+categories: java
+---
+
+# 1. 预备知识
+
+在了解Lambda表达式之前首先需要了解以下预备知识。
+
+## 1.1 如何成为一名高级码农？
+
+如果老板让你写一个用于毁灭地球的函数，而你写了一个毁灭行星的函数，若要毁灭地球只需将毁灭地球的过程传递给“毁灭行星”。能做到这一点，你就是一名高级码农。
+
+以上这个问题体现了程序可扩展性的思想。总结一下，要成为一名高级码农，在编码的时候要以发展的眼光看待问题。一个具体问题到来的时候，你需要基于当前问题抽象出解决这一类问题的办法，那么当相似的问题到来时，你只需花少量的时间就能完成任务，而且避免了代码复制，降低了bug的风险。
+
+## 1.2 实现程序可扩展性的例子
+
+在Java8以前，要实现程序的可扩展性，我们常用匿名内部类传递用于扩展的代码，举个例子：
+
+> 实现一个能从List集合中筛选指定对象的函数filter。
+
+1. 若List中存放Person对象，要求筛选出30岁以上的Person
+2. 若List中存放Apple，要求筛选出红色的Apple
+
+使用匿名内部类的解决方案：
+
+- 实现filter函数
+
+```java
+List<T> filter(List<T> list, FilterProcessor filterProcessor){
+    List<T> result = new ArrayList<T>();
+    for(T t : list){
+        if(filterProcessor.process(t))
+            result.add(t);
+    }
+    return list;
+}
+```
+
+- 定义FilterProcessor接口
+
+```java
+interface FilterProcessor<T>{
+    boolean process(T);
+}
+```
+
+- 使用匿名内部类实现筛选出30岁以上的Person
+
+```java
+List<Person> result = filter(list, new FilterProcessor<Person>(){
+    boolean process(Person person){
+        if(person.getAge()>=30)
+            return true;
+        return false;
+    }
+});
+```
+
+- 使用匿名内部类筛选出红色的Apple
+
+```java
+List<Apple> result = filter(list, new FilterProcessor<Apple>(){
+    boolean process(Apple apple){
+        if(apple.getColor().equals("red"))
+            return true;
+        return false;
+    }
+});
+```
+
+若要增加新的筛选规则，只需给filter函数传递新的匿名内部类即可。程序具有了可扩展性，恭喜你已经成为一名高级码农！
+
+## 1.3 什么是“策略模式”？
+
+上述过程总结来说，当我们需要解决同一类问题的时候，若发现这类问题大部分处理过程是一致的，只是核心步骤存在差异，这时候就可以使用上述方式：先把函数相同的部分写好，再抽象出一个接口，不同部分的代码放在接口的实现类中。要使用时，只需将实现类的对象传递给该函数即可。
+ 这种方式在设计模式中称为“策略模式”。
+
+## 1.4 使用匿名内部类实现策略模式的弊端？
+
+使用匿名内部类实现策略模式代码比较冗余，不易阅读，就像这样：
+
+```java
+List<Apple> result = filter(list, new FilterProcessor<Apple>(){
+    boolean process(Apple apple){
+        if(apple.getColor().equals("red"))
+            return true;
+        return false;
+    }
+});
+```
+
+Java8提出了Lambda表达式，它是实现策略模式的另外一种方式，目的就是为了使代码简单清晰。
+ 使用Lambda表达式实现相同功能：
+
+```java
+List<Apple> result = filter(list, (Apple apple)—>apple.getColor().equals("red"));
+```
+
+这样是不是简单多了！Lambda表达式本质上是将一个函数的代码作为一个参数或变量进行传递，这种处理方式有个专门的名字——函数式编程。
+
+## 1.5 什么是函数式编程？
+
+所谓“函数式”编程，就是将函数的代码当作一个变量，传递给另一个变量或传递给一个函数，这种编程方式就称为“函数式编程”。
+ Java8中采用Lambda表达式实现函数式编程，它是策略模式的第二种实现方式，目的就是简化策略模式的代码实现。
+
+# 2. Lambda表达式的语法
+
+Lambda表达式用于表示一个函数，所以它和函数一样，也拥有参数、返回值、函数体，但它没有函数名，所以Lambda表达式相当于一个匿名函数。语法如下：
+
+```java
+(Person person)—>person.getAge()>30
+```
+
+Lambda表达式用—>连接，->左侧为函数的参数，->右侧为函数体。
+ 若右侧由多条语句构成则需要用{}包裹，如：
+
+```java
+(Person person)—>{person.getAge()>30;System.out.println(person.getName());}
+```
+
+Lambda表达式无需显示指定返回值类型，JVM会根据->右侧语句的返回结果自动判断返回值类型，如：
+
+```java
+(Person person)—>person.getAge()>30 #自动判断返回值为boolean型
+```
+
+# 3. 如何使用Lambda表达式？
+
+> 仍以筛选年龄大于30的Person对象为例：
+
+## 3.1 为Lambda表达式定义函数式接口
+
+```java
+@FunctionalInterface
+interface FilterProcessor<T>{
+    boolean process(T t);
+}
+```
+
+PS：该接口只能有一个抽象函数！接下来Lambda表达式就是该抽象函数的实现。
+ PS：在为Lambda表达式定义函数式接口时，需要加上注解@FunctionalInterface，这样当该接口中抽象函数个数不是1时就会报错提示。
+
+## 3.2 实现筛选函数
+
+```java
+List<T> filter(List<T> list, FilterProcessor<T> filterProcessor){
+    List<T> result = new ArrayList<T>();
+    if(filterProcessor.process(t))
+        result.add(t);
+    return result;
+}
+```
+
+filter函数接收一个函数式接口，该参数用于接收一个Lambda表达式。
+
+## 3.3 传递Lambda表达式
+
+```java
+List<Person> result = filter(list, (Person p)->p.getAge()>30);
+```
+
+直接将Lambda表达式作为参数传递给filter的函数式接口即可，从而在result中就能获取年龄超过30岁的Person对象。
+
+> 转载地址: https://www.jianshu.com/p/ce76ff43f8c2
