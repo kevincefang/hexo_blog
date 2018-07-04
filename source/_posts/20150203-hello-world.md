@@ -1,5 +1,6 @@
 ---
 title: Hello World
+date: 2017-02-03
 tags: hexo
 categories: hexo
 ---
@@ -30,6 +31,12 @@ $ hexo g
 ```
 
 More info: [Generating](https://hexo.io/docs/generating.html)
+
+### Sync images to QiniuYun
+
+```bash
+$ hexo qiniu sync
+```
 
 ### Deploy to remote sites
 
