@@ -145,18 +145,38 @@ wget -N --no-check-certificate https://github.com/91yun/serverspeeder/raw/master
 如果报内核不支持，可以更换系统内核
 
 ```
-下载内核安装包  
-wget http://ftp.scientificlinux.org/linux/scientific/6.6/x86_64/updates/security/kernel-2.6.32-504.3.3.el6.x86_64.rpm  
-  
-更换内核  
-rpm -ivh kernel-2.6.32-504.3.3.el6.x86_64.rpm --force  
-  
+CentO S7.3的内核3.10.0-514.16.1.el7.x86_64暂不支持安装锐速，故更换为3.10.0-229.1.2.el7.x86_64
+下载内核安装包 
+rpm -ivh http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm --force
+
+查看内核是否安装成功
+rpm  -qa | grep kernel
+
 重启  
-reboot  
+reboot 
+
+查看内核版本是否替换成功
+uname -r
   
-查看内核版本是否替换成功  
-cat /proc/version
 ```
+
+1. 更换完内核后开始安装锐速破解版
+
+   ```
+   wget -N --no-check-certificate https://github.com/91yun/serverspeeder/raw/master/serverspeeder.sh && bash serverspeeder.sh
+   ```
+
+2. 查看状态
+
+   ```
+   service serverSpeeder status
+   ```
+
+3. 查看实时信息
+
+4. ```
+   service serverSpeeder stats
+   ```
 
 如果系统内核已更新，再次执行一键安装serverspeeder方法即可。至此serverspeeder安装完毕，快去试试速度是不提升了。
 

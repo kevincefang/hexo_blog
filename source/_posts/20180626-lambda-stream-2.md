@@ -227,5 +227,3 @@ Map<String,Integer> map = list.stream()
  partitioningBy方法返回的结果为Map< Boolean,List< T>>。
  此外，partitioningBy方法和groupingBy方法一样，也可以接收第二个参数，实现二级分区或对分区结果进行统计。
 
->  转载地址: https://www.jianshu.com/p/8854fa9b72c2
-

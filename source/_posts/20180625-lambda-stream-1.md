@@ -308,5 +308,3 @@ OptionalInt maxAge = list.stream()
 由于数值流可能为空，并且给空的数值流计算最大值是没有意义的，因此max函数返回OptionalInt，它是Optional的一个子类，能够判断流是否为空，并对流为空的情况作相应的处理。
  此外，mapToInt、mapToDouble、mapToLong进行数值操作后的返回结果分别为：OptionalInt、OptionalDouble、OptionalLong
 
-> 转载地址: https://www.jianshu.com/p/833a879d9c7c
-
