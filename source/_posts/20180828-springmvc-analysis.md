@@ -31,71 +31,71 @@ categories: spring
 
 ```java
 public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
-		if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
-			throw new IllegalStateException(
-					"Cannot initialize context because there is already a root application context present - " +
-					"check whether you have multiple ContextLoader* definitions in your web.xml!");
-		}
+    if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
+        throw new IllegalStateException(
+            "Cannot initialize context because there is already a root application context present - " +
+            "check whether you have multiple ContextLoader* definitions in your web.xml!");
+    }
 
-		Log logger = LogFactory.getLog(ContextLoader.class);
-		servletContext.log("Initializing Spring root WebApplicationContext");
-		if (logger.isInfoEnabled()) {
-			logger.info("Root WebApplicationContext: initialization started");
-		}
-		long startTime = System.currentTimeMillis();
+    Log logger = LogFactory.getLog(ContextLoader.class);
+    servletContext.log("Initializing Spring root WebApplicationContext");
+    if (logger.isInfoEnabled()) {
+        logger.info("Root WebApplicationContext: initialization started");
+    }
+    long startTime = System.currentTimeMillis();
 
-		try {
-			// Store context in local instance variable, to guarantee that
-			// it is available on ServletContext shutdown.
-			if (this.context == null) {
-				this.context = createWebApplicationContext(servletContext);
-			}
-			if (this.context instanceof ConfigurableWebApplicationContext) {
-				ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) this.context;
-				if (!cwac.isActive()) {
-					// The context has not yet been refreshed -> provide services such as
-					// setting the parent context, setting the application context id, etc
-					if (cwac.getParent() == null) {
-						// The context instance was injected without an explicit parent ->
-						// determine parent for root web application context, if any.
-						ApplicationContext parent = loadParentContext(servletContext);
-						cwac.setParent(parent);
-					}
-					configureAndRefreshWebApplicationContext(cwac, servletContext);
-				}
-			}
-			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
+    try {
+        // Store context in local instance variable, to guarantee that
+        // it is available on ServletContext shutdown.
+        if (this.context == null) {
+            this.context = createWebApplicationContext(servletContext);
+        }
+        if (this.context instanceof ConfigurableWebApplicationContext) {
+            ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) this.context;
+            if (!cwac.isActive()) {
+                // The context has not yet been refreshed -> provide services such as
+                // setting the parent context, setting the application context id, etc
+                if (cwac.getParent() == null) {
+                    // The context instance was injected without an explicit parent ->
+                    // determine parent for root web application context, if any.
+                    ApplicationContext parent = loadParentContext(servletContext);
+                    cwac.setParent(parent);
+                }
+                configureAndRefreshWebApplicationContext(cwac, servletContext);
+            }
+        }
+        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
-			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-			if (ccl == ContextLoader.class.getClassLoader()) {
-				currentContext = this.context;
-			}
-			else if (ccl != null) {
-				currentContextPerThread.put(ccl, this.context);
-			}
+        ClassLoader ccl = Thread.currentThread().getContextClassLoader();
+        if (ccl == ContextLoader.class.getClassLoader()) {
+            currentContext = this.context;
+        }
+        else if (ccl != null) {
+            currentContextPerThread.put(ccl, this.context);
+        }
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("Published root WebApplicationContext as ServletContext attribute with name [" +
-						WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE + "]");
-			}
-			if (logger.isInfoEnabled()) {
-				long elapsedTime = System.currentTimeMillis() - startTime;
-				logger.info("Root WebApplicationContext: initialization completed in " + elapsedTime + " ms");
-			}
+        if (logger.isDebugEnabled()) {
+            logger.debug("Published root WebApplicationContext as ServletContext attribute with name [" +
+                         WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE + "]");
+        }
+        if (logger.isInfoEnabled()) {
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            logger.info("Root WebApplicationContext: initialization completed in " + elapsedTime + " ms");
+        }
 
-			return this.context;
-		}
-		catch (RuntimeException ex) {
-			logger.error("Context initialization failed", ex);
-			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ex);
-			throw ex;
-		}
-		catch (Error err) {
-			logger.error("Context initialization failed", err);
-			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, err);
-			throw err;
-		}
-	}
+        return this.context;
+    }
+    catch (RuntimeException ex) {
+        logger.error("Context initialization failed", ex);
+        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ex);
+        throw ex;
+    }
+    catch (Error err) {
+        logger.error("Context initialization failed", err);
+        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, err);
+        throw err;
+    }
+}
 ```
 
 上面的部分代码可以看出，初始化时候通过`createWebApplicationContext(servletContext);`声明一个`WebApplicationContext`并赋值给`ServletContext`的`org.springframework.web.context.WebApplicationContext.ROOT`属性，作为`WebApplicationContext`的根上下文（root context）。
@@ -143,33 +143,33 @@ DispatcherServlet -> FrameworkServlet -> HttpServletBean -> HttpServlet -> Gener
 
 ```java
 public final void init() throws ServletException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("Initializing servlet '" + getServletName() + "'");
-		}
+    if (logger.isDebugEnabled()) {
+        logger.debug("Initializing servlet '" + getServletName() + "'");
+    }
 
-		// Set bean properties from init parameters.
-		try {
-			PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
-			BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(this);
-			ResourceLoader resourceLoader = new ServletContextResourceLoader(getServletContext());
-			bw.registerCustomEditor(Resource.class, new ResourceEditor(resourceLoader, getEnvironment()));
-			initBeanWrapper(bw);
-			bw.setPropertyValues(pvs, true);
-		}
-		catch (BeansException ex) {
-			if (logger.isErrorEnabled()) {
-				logger.error("Failed to set bean properties on servlet '" + getServletName() + "'", ex);
-			}
-			throw ex;
-		}
+    // Set bean properties from init parameters.
+    try {
+        PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
+        BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(this);
+        ResourceLoader resourceLoader = new ServletContextResourceLoader(getServletContext());
+        bw.registerCustomEditor(Resource.class, new ResourceEditor(resourceLoader, getEnvironment()));
+        initBeanWrapper(bw);
+        bw.setPropertyValues(pvs, true);
+    }
+    catch (BeansException ex) {
+        if (logger.isErrorEnabled()) {
+            logger.error("Failed to set bean properties on servlet '" + getServletName() + "'", ex);
+        }
+        throw ex;
+    }
 
-		// Let subclasses do whatever initialization they like.
-		initServletBean();
+    // Let subclasses do whatever initialization they like.
+    initServletBean();
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("Servlet '" + getServletName() + "' configured successfully");
-		}
-	}
+    if (logger.isDebugEnabled()) {
+        logger.debug("Servlet '" + getServletName() + "' configured successfully");
+    }
+}
 ```
 
 以上部分源码描述的过程是通过读取`<init-param>`的配置元素，读取到`DispatcherServlet`中，配置相关`bean`的配置。完成配置后调用`initServletBean`方法来创建`Servlet WebApplicationContext`。
@@ -178,54 +178,54 @@ public final void init() throws ServletException {
 
 ```java
 protected final void initServletBean() throws ServletException {
-        ...
+    ...
 
         try {
             this.webApplicationContext = initWebApplicationContext();
             initFrameworkServlet();
         }
-        ...
-    }
-    
-    protected WebApplicationContext initWebApplicationContext() {
-        WebApplicationContext rootContext =
-                WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        WebApplicationContext wac = null;
+    ...
+}
 
-        if (this.webApplicationContext != null) {
-            wac = this.webApplicationContext;
-            if (wac instanceof ConfigurableWebApplicationContext) {
-                ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) wac;
-                if (!cwac.isActive()) {
-                    if (cwac.getParent() == null) {
-                        cwac.setParent(rootContext);
-                    }
-                    configureAndRefreshWebApplicationContext(cwac);
+protected WebApplicationContext initWebApplicationContext() {
+    WebApplicationContext rootContext =
+        WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+    WebApplicationContext wac = null;
+
+    if (this.webApplicationContext != null) {
+        wac = this.webApplicationContext;
+        if (wac instanceof ConfigurableWebApplicationContext) {
+            ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) wac;
+            if (!cwac.isActive()) {
+                if (cwac.getParent() == null) {
+                    cwac.setParent(rootContext);
                 }
+                configureAndRefreshWebApplicationContext(cwac);
             }
         }
-        if (wac == null) {
-            wac = findWebApplicationContext();
-        }
-        if (wac == null) {
-            wac = createWebApplicationContext(rootContext);
-        }
-
-        if (!this.refreshEventReceived) {
-            onRefresh(wac);
-        }
-
-        if (this.publishContext) {
-            String attrName = getServletContextAttributeName();
-            getServletContext().setAttribute(attrName, wac);
-            if (this.logger.isDebugEnabled()) {
-                this.logger.debug("Published WebApplicationContext of servlet '" + getServletName() +
-                        "' as ServletContext attribute with name [" + attrName + "]");
-            }
-        }
-
-        return wac;
     }
+    if (wac == null) {
+        wac = findWebApplicationContext();
+    }
+    if (wac == null) {
+        wac = createWebApplicationContext(rootContext);
+    }
+
+    if (!this.refreshEventReceived) {
+        onRefresh(wac);
+    }
+
+    if (this.publishContext) {
+        String attrName = getServletContextAttributeName();
+        getServletContext().setAttribute(attrName, wac);
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug("Published WebApplicationContext of servlet '" + getServletName() +
+                              "' as ServletContext attribute with name [" + attrName + "]");
+        }
+    }
+
+    return wac;
+}
 ```
 
 上文提到`Servlet`容器在启动的时候，通过`ContextLoaderListener`创建一个根上下文，并配置到`ServletContext`中。可以看出`FrameworkServlet`这个类做的作用是用来创建`WebApplicationContext`上下文的。大致过程如下：
@@ -248,17 +248,17 @@ protected final void initServletBean() throws ServletException {
 
 ```java
 @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+protected void service(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
 
-        HttpMethod httpMethod = HttpMethod.resolve(request.getMethod());
-        if (HttpMethod.PATCH == httpMethod || httpMethod == null) {
-            processRequest(request, response);
-        }
-        else {
-            super.service(request, response);
-        }
+    HttpMethod httpMethod = HttpMethod.resolve(request.getMethod());
+    if (HttpMethod.PATCH == httpMethod || httpMethod == null) {
+        processRequest(request, response);
     }
+    else {
+        super.service(request, response);
+    }
+}
 ```
 
 如果请求的方法是`PATCH`或者空，直接调用`processRequest`方法（后面会详细解释）；否则，将调用父类的`service`的方法，即`HttpServlet`的`service`方法, 而这里会根据请求方法，去调用相应的`doGet`、`doPost`、`doPut`......
@@ -267,57 +267,57 @@ protected final void initServletBean() throws ServletException {
 
 ```java
 protected final void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    throws ServletException, IOException {
 
-		long startTime = System.currentTimeMillis();
-		Throwable failureCause = null;
+    long startTime = System.currentTimeMillis();
+    Throwable failureCause = null;
 
-		LocaleContext previousLocaleContext = LocaleContextHolder.getLocaleContext();
-		LocaleContext localeContext = buildLocaleContext(request);
+    LocaleContext previousLocaleContext = LocaleContextHolder.getLocaleContext();
+    LocaleContext localeContext = buildLocaleContext(request);
 
-		RequestAttributes previousAttributes = RequestContextHolder.getRequestAttributes();
-		ServletRequestAttributes requestAttributes = buildRequestAttributes(request, response, previousAttributes);
+    RequestAttributes previousAttributes = RequestContextHolder.getRequestAttributes();
+    ServletRequestAttributes requestAttributes = buildRequestAttributes(request, response, previousAttributes);
 
-		WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
-		asyncManager.registerCallableInterceptor(FrameworkServlet.class.getName(), new RequestBindingInterceptor());
+    WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
+    asyncManager.registerCallableInterceptor(FrameworkServlet.class.getName(), new RequestBindingInterceptor());
 
-		initContextHolders(request, localeContext, requestAttributes);
+    initContextHolders(request, localeContext, requestAttributes);
 
-		try {
-			doService(request, response);
-		}
-		catch (ServletException | IOException ex) {
-			failureCause = ex;
-			throw ex;
-		}
-		catch (Throwable ex) {
-			failureCause = ex;
-			throw new NestedServletException("Request processing failed", ex);
-		}
+    try {
+        doService(request, response);
+    }
+    catch (ServletException | IOException ex) {
+        failureCause = ex;
+        throw ex;
+    }
+    catch (Throwable ex) {
+        failureCause = ex;
+        throw new NestedServletException("Request processing failed", ex);
+    }
 
-		finally {
-			resetContextHolders(request, previousLocaleContext, previousAttributes);
-			if (requestAttributes != null) {
-				requestAttributes.requestCompleted();
-			}
+    finally {
+        resetContextHolders(request, previousLocaleContext, previousAttributes);
+        if (requestAttributes != null) {
+            requestAttributes.requestCompleted();
+        }
 
-			if (logger.isDebugEnabled()) {
-				if (failureCause != null) {
-					this.logger.debug("Could not complete request", failureCause);
-				}
-				else {
-					if (asyncManager.isConcurrentHandlingStarted()) {
-						logger.debug("Leaving response open for concurrent processing");
-					}
-					else {
-						this.logger.debug("Successfully completed request");
-					}
-				}
-			}
+        if (logger.isDebugEnabled()) {
+            if (failureCause != null) {
+                this.logger.debug("Could not complete request", failureCause);
+            }
+            else {
+                if (asyncManager.isConcurrentHandlingStarted()) {
+                    logger.debug("Leaving response open for concurrent processing");
+                }
+                else {
+                    this.logger.debug("Successfully completed request");
+                }
+            }
+        }
 
-			publishRequestHandledEvent(request, response, startTime, failureCause);
-		}
-	}
+        publishRequestHandledEvent(request, response, startTime, failureCause);
+    }
+}
 ```
 
 为了避免子类重写它，该方法用`final`修饰。
@@ -435,7 +435,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 
 * 然后调用`processDispatchResult`方法处理请求结果，封装到`response`中。
 
-### SpingMVC 请求处理流程
+#### SpingMVC 请求处理流程
 
 `SpringMVC`框架是围绕`DispatcherServlet`设计的。`DispatcherServlet`负责将请求分发给对应的处理程序。从网上找了两个图，可以大致了解`SpringMVC`的框架对请求的处理流程。
 
@@ -453,7 +453,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 
 * 最终`DispatcherServlet`将渲染好的`response`返回给用户。
 
-### 总结
+#### 总结
 
 本文主要分析`SpringMVC`中`DispatcherServlet`的初始化、请求流传过程等。
 
