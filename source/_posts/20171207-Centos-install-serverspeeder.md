@@ -23,7 +23,7 @@ rpm  -qa | grep kernel
 
 3. 如果显示里面有这个内核就对了。
 
-![1](http://p066mj5r9.bkt.clouddn.com/static/images/20180626/1.png)
+![1](https://raw.githubusercontent.com/kevincefang/hexo_blog/master/static/images/20180626/1.png)
 
 4. 重启，查看内核是否更换成功
 

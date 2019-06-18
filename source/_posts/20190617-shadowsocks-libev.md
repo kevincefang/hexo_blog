@@ -177,7 +177,52 @@ vim /etc/shadowsocks-libev/config.json
 ss-server -s 服务器IP -p 端口 -k 密码 -m chacha20-ietf-poly1305 -u -l 1080 -t 600 --fast-open true --plugin obfs-server --plugin-opts obfs=http;fast-open
 ```
 
+##### 加速优化(可选)
 
+> 加速可选 bbr 和 kcptun
+
+###### Google BBR
+
+google bbr 加速优化教程链接：[CentOS 安装 BBR](https://www.vultr.com/docs/how-to-deploy-google-bbr-on-centos-7)
+
+###### Kcptun
+
+去 github 下载对应的版本软件：<https://github.com/xtaci/kcptun/releases>
+
+我是 CentOS7 64 位的系统，所以下载的是 kcptun-linux-amd64-20180305.tar.gz，下载完解压，把 server_linux_amd64 这个文件传到 vps （或者直接通过 vps 下载），然后把该文件移动到 /usr/local/kcptun/ 目录下，如果没有执行权限，记得给该文件赋予执行权限。
+
+创建 kcptun 的配置文件
+
+```
+vim /usr/local/kcptun/server-config.json
+```
+
+内容如下：
+
+```
+{
+  "listen": ":29900",
+  "target": "127.0.0.1:端口",
+  "key": "密码",
+  "crypt": "aes",
+  "mode": "fast2",
+  "mtu": 1350,
+  "sndwnd": 512,
+  "rcvwnd": 512,
+  "datashard": 10,
+  "parityshard": 3,
+  "dscp": 0,
+  "nocomp": false,
+  "quiet": false,
+  "pprof": false
+}
+```
+
+后台启动Kcptun server服务
+
+```
+nohup /usr/local/kcptun/server_linux_amd64 -c /usr/local/kcptun/server-config.json &
+```
 
 
 

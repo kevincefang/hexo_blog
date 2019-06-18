@@ -439,9 +439,9 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 
 `SpringMVC`框架是围绕`DispatcherServlet`设计的。`DispatcherServlet`负责将请求分发给对应的处理程序。从网上找了两个图，可以大致了解`SpringMVC`的框架对请求的处理流程。
 
-![1](http://p066mj5r9.bkt.clouddn.com/static/images/20180828/2.webp)
+![1](https://raw.githubusercontent.com/kevincefang/hexo_blog/master/static/images/20180828/2.webp)
 
-![1](http://p066mj5r9.bkt.clouddn.com/static/images/20180828/3.webp)
+![1](https://raw.githubusercontent.com/kevincefang/hexo_blog/master/static/images/20180828/3.webp)
 
 * 用户发送请求，`Front Controller`（`DispatcherServlet`）根据请求信息将请求委托给对应的`Controller`进行处理。
 
