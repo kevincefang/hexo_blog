@@ -51,7 +51,7 @@ public class Main{
 
 ThreadLocal的使用方法非常简单，关键在于它背后的实现原理。回到上面的问题：ThreadLocal究竟是如何避免同步锁，从而保证读写的高效？
 
-![1](https://raw.githubusercontent.com/kevincefang/hexo_blog/master/static/images/20180627/1.png)
+![1](http://fhaoer.com/hexo_blog/static/images/20180627/1.png)
 
 `ThreadLocal`并不维护`ThreadLocalMap`，并不是一个存储数据的容器，它只是相当于一个工具包，提供了操作该容器的方法，如get、set、remove等。而`ThreadLocal`内部类`ThreadLocalMap`才是存储数据的容器，并且该容器由`Thread`维护。
 

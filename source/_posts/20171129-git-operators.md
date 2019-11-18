@@ -8,7 +8,7 @@ categories: git
 
 > 理解这些指令，觉得最重要的是理解Git的内部原理，比如Git的分布式版本控制，分清楚工作区、暂存区、版本库，还有就是理解Git跟踪并管理的是修改，而非文件。
 
-![classloader](https://raw.githubusercontent.com/kevincefang/hexo_blog/master/static/images/20171129/1.jpg)
+![classloader](http://fhaoer.com/hexo_blog/static/images/20171129/1.jpg)
 
 ## 第一步是要获得一个GIT仓库
 
