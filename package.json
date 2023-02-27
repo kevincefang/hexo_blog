@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "gulp": "^3.9.1",
-    "hexo": "^3.2.0",
+    "hexo": "^3.9.0",
     "hexo-algolia": "^0.1.1",
-    "hexo-deployer-git": "^0.2.0",
+    "hexo-deployer-git": "^4.0.0",
     "hexo-deployer-qiniu": "^0.1.2",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-baidu-sitemap": "^0.1.2",
